@@ -1,78 +1,51 @@
-using System;
 
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
-int a = 6, b = 8;
+var appPath = "C:\\Users\\User\\Desktop\\12321\\PhoneBook.csv";
+var phonebook = TextPhoneBook(appPath);
+AddPhoneBook(appPath);
+phonebook = TextPhoneBook(appPath);
+var first = SearchPeople(Console.ReadLine(), phonebook);
+Console.WriteLine($"{(first.Any() ? $"{string.Join("\r\n", first)}" : "No castoms")}");
 
-int max()
+(string, string, string)[] SearchPeople(
+    string input,
+    List<(string, string, string)> collection)=>
+
+    collection.Where(person =>
+    person.Item1.Contains(input, StringComparison.OrdinalIgnoreCase) ||
+    person.Item2.Contains(input, StringComparison.OrdinalIgnoreCase) ||
+    person.Item3.Contains(input)).ToArray();
+    
+
+List<(string FirstName, string LastName, string PhoneNumber)> TextPhoneBook(string path)
 {
-    return Math.Max(a, b);
+    var book = new List<(string FirstName, string LastName, string PhoneNumber)>();
+    //var lines = File.ReadAllLines(path);
+    //foreach (var line in lines)
+    //{
+    //    var split = line.Split(",");
+    //    book.Add((split[0], split[1], split[2]));
+    //}
+
+    return book;
 }
-Console.WriteLine($"Максимальне число {max()}");
-int min()
+
+void AddPhoneBook(string path)
 {
-    return Math.Min(a, b);
+    InputValue(out var firstname, "Iм'я");
+    InputValue(out var lastname, "Прiзвище");
+    InputValue(out var phonenumber, "Номер телефона");
+    
+    File.AppendAllLines(
+        path, 
+        new[] { $"{firstname}, {lastname}, {phonenumber}" });
 }
-Console.WriteLine($"Мiнiмальне число {min()}");
-
-
-bool summ()
+void InputValue ( out string result, string Name )
 {
-   
-    int summ = 0;
-    if (a < b)
-    {
-
-        for (int i = a; i <= b; i++)
-        {
-            summ += i;
-        }
-
-    }
-    else if (a > b)
-    {
-
-        for (int i = b; i <= a; i++)
-        {
-            summ += i;
-        }
-    }
-    if (summ % 2 == 0)
-    {
-        return (true);
-    }
-    else
-    {
-        return (false);
-    }
+    Console.WriteLine($"Ведiть {Name}");
+    result = Console.ReadLine();
+    Console.WriteLine($"{Name}: {result} ");
 }
-Console.WriteLine(summ());
 
-public class Test
-{
-    int a = 3, b = 5;
-    int max()
-    {
-        return Math.Max(a, b);
-        Console.WriteLine($"Максимальне число {max()}");
-    }
-    int max(int c = 4, int d = 5)
-    {
-        return Math.Max(Math.Max(a,b), Math.Max(c,d));
-        Console.WriteLine($"Максимальне число {max()}");
-    }
-  
-    int min()
-    {
-        return Math.Max(a, b);
-        Console.WriteLine($"Максимальне число {max()}");
-    }
-    int min(int c = 7, int d = 9)
-    {
-        return Math.Max(Math.Max(a, b), Math.Max(c, d));
-        Console.WriteLine($"Максимальне число {max()}");
-    }
-
-
-
-
-}
