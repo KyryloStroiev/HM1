@@ -2,10 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-var appPath = "C:\\Users\\User\\Desktop\\12321\\PhoneBook.csv";
+var appPath = "C:\\Users\\User\\Desktop\\Чернетки\\Черновик 3\\Черновик3\\Черновик3\\PhoneBook.csv";
 var phonebook = TextPhoneBook(appPath);
 AddPhoneBook(appPath);
 phonebook = TextPhoneBook(appPath);
+Console.WriteLine("Пошук по контактам. Ведiть данi:");
 var first = SearchPeople(Console.ReadLine(), phonebook);
 Console.WriteLine($"{(first.Any() ? $"{string.Join("\r\n", first)}" : "No castoms")}");
 
@@ -22,12 +23,12 @@ Console.WriteLine($"{(first.Any() ? $"{string.Join("\r\n", first)}" : "No castom
 List<(string FirstName, string LastName, string PhoneNumber)> TextPhoneBook(string path)
 {
     var book = new List<(string FirstName, string LastName, string PhoneNumber)>();
-    //var lines = File.ReadAllLines(path);
-    //foreach (var line in lines)
-    //{
-    //    var split = line.Split(",");
-    //    book.Add((split[0], split[1], split[2]));
-    //}
+    var lines = File.ReadAllLines(path);
+    foreach (var line in lines)
+    {
+        var split = line.Split(",");
+        book.Add((split[0], split[1], split[2]));
+    }
 
     return book;
 }
